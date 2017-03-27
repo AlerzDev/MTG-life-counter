@@ -39,6 +39,21 @@ function createUser(req, res) {
 
 }
 
+function allUsers(req, res) {
+    User.find({},(error, users)=>{
+       if(users){
+           res.status(200).send({status:'ok', users});
+       } else {
+           if(error){
+               res.status(500).send({error: 'error-db'});
+           }else {
+               res.status(200).send({error: 'not-exist'});
+           }
+       }
+    });
+}
+
 module.exports = {
-    createUser
+    createUser,
+    allUsers
 };
