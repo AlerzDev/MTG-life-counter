@@ -36,6 +36,7 @@ function createUser(req, res) {
     }else {
         res.status(200).send({error: validate.errors[0].field});
     }
+
 }
 
 module.exports = {
