@@ -1,0 +1,29 @@
+{
+  "name": "mtglivecounter",
+  "version": "1.0.0",
+  "description": "Real-time lives counter",
+  "main": "app.js",
+  "scripts": {
+    "start": "supervisor app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mtg",
+    "live",
+    "counters",
+    "nodejs",
+    "real-time"
+  ],
+  "author": "Alejandro Lemus Rodríguez",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "is-my-json-valid": "^2.16.0",
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^4.9.1",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {}
+}
