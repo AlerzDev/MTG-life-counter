@@ -3,12 +3,13 @@
  */
 'use strict';
 
-const URL_MONGO_DB = 'mongodb://192.168.0.28:27017/mtg_life_counter';
+const URL_MONGO_DB = 'mongodb://localhost:27017/mtg_life_counter';
 const PORT         = process.env.PORT || 3000;
-
+const ROLE_ADMIN   = 'admin';
 
 //noinspection JSUnresolvedVariable
 module.exports = {
     URL_MONGO_DB: URL_MONGO_DB,
-    PORT: PORT
+    PORT: PORT,
+    ROLE_ADMIN: ROLE_ADMIN
 };

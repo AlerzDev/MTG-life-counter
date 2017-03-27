@@ -34,7 +34,7 @@ function LogIn(req, res) {
                 if(error){
                     res.status(500).send({error: 'error-db'});
                 }else {
-                    res.status(200).send({error: 'not-exist'});
+                    res.status(200).send({error: 'not-exist-user'});
                 }
             }
         });
