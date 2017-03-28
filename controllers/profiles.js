@@ -8,12 +8,12 @@ const validate = require('../models/validate_schemas/profile');
 
 function createdProfile(req, res) {
 
-    let profile = new Profile()
+    let profile = new Profile();
     let params = req.body;
 
     if(validate(params)){
 
-        User.findOne((error, user)=>{
+        User.findOne({_id: params.user},(error, user)=>{
             if(user){
                 profile.avatar = params.avatar;
                 profile.full_name = params.full_name;
@@ -45,14 +45,13 @@ function createdProfile(req, res) {
 }
 
 function getProfile(req, res) {
-    let id = req.headers.id;
+    let id = req.params.id;
     if(id){
         Profile.findOne({_id: id},(error, profile)=>{
             if(profile){
                 res.status(200).send({status:'ok', profile});
             }else {
                 if(error){
-
                     res.status(500).send({error: 'not-exist-profile'});
                 }
             }
@@ -62,7 +61,45 @@ function getProfile(req, res) {
     }
 }
 
+function updateProfile(req, res) {
+    let id = req.params.id;
+    let params = req.body;
+    if(id) {
+        if (validate(params)) {
+            User.findOne({_id:params.user},(error, user) => {
+                if (user) {
+
+                    Profile.findOneAndUpdate(id,params, (error, profileUpdate) => {
+                        if (error) {
+                            console.log(error);
+                            res.status(500).send({error: 'error-db'});
+                        } else {
+                            if (profileUpdate) {
+                                res.status(201).send({status: 'ok', profileUpdate});
+                            } else {
+                                res.status(404).send({error: 'error-update'});
+                            }
+                        }
+                    });
+                } else {
+                    if (error) {
+
+                        res.status(500).send({error: 'error-db'});
+                    } else {
+                        res.status(200).send({error: 'not-exist-user'});
+                    }
+                }
+            });
+        } else {
+            res.status(200).send({error: validate.errors[0].field});
+        }
+    }else {
+        res.status(400).send({error: 'not-exist-url'});
+    }
+}
+
 module.exports = {
     createdProfile,
-    getProfile
-}
+    getProfile,
+    updateProfile
+};
